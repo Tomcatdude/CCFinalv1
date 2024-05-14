@@ -68,7 +68,10 @@ def handler(event, context):
         f.close()
 
         sys.path.append('/tmp')
-        sys.module.pop('manager')
+        try:
+            sys.modules.pop('manager')
+        except:
+            print('module not imported yet')
         from manager import knight_attack
 
 
