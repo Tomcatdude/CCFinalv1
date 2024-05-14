@@ -19,7 +19,7 @@
       "function": {
         "grader": {
           "deploymentBucketName": "amplify-finalv1-dev-6411a-deployment",
-          "s3Key": "amplify-builds/grader-766367714b2f41384b33-build.zip"
+          "s3Key": "amplify-builds/grader-566b54446e7066474e6e-build.zip"
         }
       },
       "auth": {

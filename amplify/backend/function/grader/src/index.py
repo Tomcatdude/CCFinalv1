@@ -187,7 +187,7 @@ def handler(event, context):
 
         print(f'results_str:{results_str}')
 
-        table = boto3.resource('dynamodb').Table('Result-urfzxobpc5bozecdt6sawncklq-dev')
+        table = boto3.resource('dynamodb').Table('Result-p5zv5jaxcngclm3guabixyiyre-main')
         table.update_item(
             Key={'id': 'root',},
             UpdateExpression='SET #R = :r',
