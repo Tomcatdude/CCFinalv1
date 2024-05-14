@@ -46,18 +46,20 @@ def handler(event, context):
         abort = False
         while abort == False:
             #test 1
-            start = time.time()
+            start = time.time() #starting time
             if knight_attack(8, 1, 1, 2, 2) == 2:
-                full = time.time()-start
+                full = time.time()-start #end time
                 in_seconds = full%60
-                if(in_seconds>2):
+                if(in_seconds>2): #find if it took too long
                     passlist = ['long']
+                    break
                 passlist.append([1,in_seconds])
             else:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([0,in_seconds])
                 passlist
 
@@ -68,12 +70,14 @@ def handler(event, context):
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([1,in_seconds])
             else:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([0,in_seconds])
                 passlist
             
@@ -84,12 +88,14 @@ def handler(event, context):
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([1,in_seconds])
             else:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([0,in_seconds])
                 passlist
             
@@ -100,12 +106,14 @@ def handler(event, context):
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([1,in_seconds])
             else:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([0,in_seconds])
                 passlist
 
@@ -116,12 +124,14 @@ def handler(event, context):
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([1,in_seconds])
             else:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([0,in_seconds])
                 passlist
 
@@ -132,12 +142,14 @@ def handler(event, context):
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([1,in_seconds])
             else:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([0,in_seconds])
                 passlist
 
@@ -148,12 +160,14 @@ def handler(event, context):
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([1,in_seconds])
             else:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([0,in_seconds])
                 passlist
 
@@ -165,12 +179,14 @@ def handler(event, context):
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([1,in_seconds])
             else:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
                     passlist = ['long']
+                    break
                 passlist.append([0,in_seconds])
                 passlist
             print('after test 8')
@@ -178,11 +194,12 @@ def handler(event, context):
 
         results_str = ''
         for element in passlist:
-            if element == 'long':
+            if element == 'long': #bad results, notify user
                 results_str = 'long'
                 break
             results_str += f'{element[0]}:{element[1]},'
-        results_str = results_str[:-1]#remove last comma
+        if results_str != 'long':
+            results_str = results_str[:-1]#remove last comma
         
 
         print(f'results_str:{results_str}')
@@ -202,6 +219,21 @@ def handler(event, context):
         
 
     except Exception as e:
+
+        #bad results, notify the app
+        results_str = 'long'
+
+        table = boto3.resource('dynamodb').Table('Result-p5zv5jaxcngclm3guabixyiyre-main')
+        table.update_item(
+            Key={'id': 'root',},
+            UpdateExpression='SET #R = :r',
+            ExpressionAttributeValues={
+                ':r': results_str,
+            },
+            ExpressionAttributeNames={
+                '#R': 'result',
+            }
+        )
         print('error on this side')
         print(e)
         errors.append('failed on import of the thing')

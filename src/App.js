@@ -108,7 +108,7 @@ function App() {
     setId(val);
   }
 
-  function resultIntoArr(result){
+  function resultIntoArr(result){ //parse results string into numbers
     const rows = result.split(',');
     let trials = [];
     let howManyCorrect = 0;
@@ -127,7 +127,7 @@ function App() {
   const handleSubmit = async () => {
     let emailGood = false;
     const emailStr = String(email)
-    if(emailStr.length > 9){
+    if(emailStr.length > 9){ //find if email is from SJSU
       const domain = emailStr.substring(emailStr.length - 9);
       if(domain === '@sjsu.edu'){
         emailGood = true;
@@ -139,28 +139,28 @@ function App() {
     }
 
     let idGood = false;
-    if(emailGood){
+    if(emailGood){ //find if ID is good, only if email was good
       if(String(id).length > 0){
         idGood = true;
       } else {
         setAlert('not a valid id');
       }
     }
-    if(idGood){
+    if(idGood){ //if id and email were good, we can continue
       setAlert('grading')
-      await setTimeout(10000);//10 seconds
+      //await setTimeout(10000);//10 seconds
       fetchResults();
-      console.log('results',results)
+      //console.log('results',results)
 
       let currentResult = 'DNE';
       let currentResultIndex = -1;
-      results.forEach((result, resultIndex) => {
+      results.forEach((result, resultIndex) => { //find the current result that matches the inputted id
         if(String(result.id) === id){ //we can update instead of create new
           currentResult = result.result;
           currentResultIndex = resultIndex;
         }
       });
-      const newResult = results[results.length-1].result;
+      const newResult = results[results.length-1].result; //get root
       if(newResult != 'long'){
         if(currentResult == 'DNE'){ //if the current id doesn't exist in table, there is no other result yet
           console.log('DNE')
@@ -168,21 +168,32 @@ function App() {
           const newResultArr = resultIntoArr(String(newResult));
           setYourResult(newResultArr);
           setBestScore(String(newResultArr[8][0]));
-        } else {
+        } else { //the id does exist, so let's compare it and find which one is better
           console.log('did exist')
           const currentResultArr = resultIntoArr(String(currentResult));
           const newResultArr = resultIntoArr(String(newResult));
           console.log('newResult', newResultArr)
           console.log('currentResult', currentResultArr)
           setYourResult(newResultArr);
-          if(newResultArr[8][0] > currentResultArr[8][0]){
+          if(newResultArr[8][0] > currentResultArr[8][0]){//check if the new or current score is higher
             updateAResult(currentResultIndex, newResult); //it was greater, so update it
             setBestScore(String(newResultArr[8][0]));
           } else { //it was less
             setBestScore(String(currentResultArr[8][0]));
           }
         }
-      } else {
+      } else { //the code took longer to end than expected
+        setResults(
+          [0,0.00],
+          [0,0.00],
+          [0,0.00],
+          [0,0.00],
+          [0,0.00],
+          [0,0.00],
+          [0,0.00],
+          [0,0.00],
+          [0,0.00],
+        )
         setAlert('aborted, code not good')
       }
       setAlert('graded');
@@ -192,14 +203,14 @@ function App() {
 
   fetchResults()
 
-  function numberResultToString(number){
+  function numberResultToString(number){ //instead of 1 or 0, passed or failed
     if(number == 1){
       return 'passed'
     }
     return 'failed'
   }
 
-  function getGrade(){
+  function getGrade(){ //get percentage grade
     let numRight = 0;
     numRight += yourResult[0][0];
     numRight += yourResult[1][0];
