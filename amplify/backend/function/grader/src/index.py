@@ -42,11 +42,12 @@ def handler(event, context):
             errors.append('error on downloading file')
 
     try:
-        sys.path.append('/tmp')
+        
         KA_object = s3.Object(BUCKET_NAME, KEY)
         line_stream = codecs.getreader("utf-8")
+        print('pushed!')
 
-        file_to_write_to = "manager.py"
+        file_to_write_to = "/tmp/manager.py"
         if not os.path.isfile(file_to_write_to):
             with open(file_to_write_to, 'w') as fp:
                 pass    
@@ -57,6 +58,7 @@ def handler(event, context):
         for line in line_stream(KA_object.get()['Body']):
             raw.write(line)
 
+        sys.path.append('/tmp')
         from manager import knight_attack
 
 
