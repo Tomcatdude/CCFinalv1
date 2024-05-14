@@ -4,7 +4,6 @@ import botocore
 import sys
 import time
 import os
-import importlib
 from subprocess import call
 
 def handler(event, context):
@@ -27,13 +26,12 @@ def handler(event, context):
     try:
         print(f'the key: {KEY}')
         print(f'bucket name: {BUCKET_NAME}')
-        
+        local_file_name = '/tmp/bfstest.py'
         uploaded_file_name = KEY[::-1]
         uploaded_file_name = uploaded_file_name.split('/')[0]
         uploaded_file_name = uploaded_file_name[::-1]
         print(f'filename after full thing: {uploaded_file_name}')
         KEY = f'private/us-east-1:8d6cf329-03e9-cb88-2d87-e615644e09e3/{uploaded_file_name}'
-        local_file_name = f'/tmp/{uploaded_file_name}'
         print(f'manual input key: {KEY}')
         s3.Bucket(BUCKET_NAME).download_file(KEY, local_file_name)
         print('downloading file worked!')
@@ -46,8 +44,7 @@ def handler(event, context):
         print('right on top of import')
         sys.path.append('/tmp')
         print(f'path: {sys.path}')
-        knight_attack_module = importlib.import_module(uploaded_file_name[:-3])
-        print(knight_attack_module)
+        from bfstest import knight_attack
         print('made it past import')
 
         passlist = []
@@ -57,7 +54,7 @@ def handler(event, context):
         while abort == False:
             #test 1
             start = time.time() #starting time
-            if knight_attack_module.knight_attack(8, 1, 1, 2, 2) == 2:
+            if knight_attack(8, 1, 1, 2, 2) == 2:
                 full = time.time()-start #end time
                 in_seconds = full%60
                 if(in_seconds>2): #find if it took too long
@@ -75,7 +72,7 @@ def handler(event, context):
 
             #test 2
             start = time.time()
-            if knight_attack_module.knight_attack(8, 1, 1, 2, 3) == 1:
+            if knight_attack(8, 1, 1, 2, 3) == 1:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
@@ -93,7 +90,7 @@ def handler(event, context):
             
             #test 3
             start = time.time()
-            if knight_attack_module.knight_attack(8, 0, 3, 4, 2) == 3:
+            if knight_attack(8, 0, 3, 4, 2) == 3:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
@@ -111,7 +108,7 @@ def handler(event, context):
             
             #test 4
             start = time.time()
-            if knight_attack_module.knight_attack(8, 0, 3, 5, 2) == 4:
+            if knight_attack(8, 0, 3, 5, 2) == 4:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
@@ -129,7 +126,7 @@ def handler(event, context):
 
             #test 5
             start = time.time()
-            if knight_attack_module.knight_attack(24, 4, 7, 19, 20) == 10:
+            if knight_attack(24, 4, 7, 19, 20) == 10:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
@@ -147,7 +144,7 @@ def handler(event, context):
 
             #test 6
             start = time.time()
-            if knight_attack_module.knight_attack(100, 21, 10, 0, 0) == 11:
+            if knight_attack(100, 21, 10, 0, 0) == 11:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
@@ -165,7 +162,7 @@ def handler(event, context):
 
             #test 7
             start = time.time()
-            if knight_attack_module.knight_attack(3, 0, 0, 1, 2) == 1:
+            if knight_attack(3, 0, 0, 1, 2) == 1:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
@@ -185,7 +182,7 @@ def handler(event, context):
             #test 8
             start = time.time()
             
-            if knight_attack_module.knight_attack(3, 0, 0, 1, 1) is None:
+            if knight_attack(3, 0, 0, 1, 1) is None:
                 full = time.time()-start
                 in_seconds = full%60
                 if(in_seconds>2):
@@ -227,8 +224,9 @@ def handler(event, context):
             }
         )
 
-        #sys.path.pop()
-        call('rm -rf /tmp/..?* /tmp/.[!.]* /tmp/*', shell=True)
+        sys.path.pop()
+        tmp_file_path = '/tmp/bftest.py'
+        os.remove(tmp_file_path)
         print('removed file')
         
         
