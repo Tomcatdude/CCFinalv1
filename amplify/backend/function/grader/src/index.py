@@ -224,15 +224,15 @@ def handler(event, context):
         )
 
         #sys.path.pop()
-        call('rm -rf /..?* /.[!.]* /*', shell=True)
+        call('rm -rf /tmp/..?* /tmp/.[!.]* /tmp/*', shell=True)
         print('removed file')
         
         
 
     except Exception as e:
         #sys.path.pop()
-        call('rm -rf /..?* /.[!.]* /*', shell=True)
-        print('removed file from error part')
+        call('rm -rf /tmp/..?* /tmp/.[!.]* /tmp/*', shell=True)
+        print('removed file from error')
 
         #bad results, notify the app
         results_str = 'long'
