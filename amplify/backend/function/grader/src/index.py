@@ -4,6 +4,7 @@ import botocore
 import sys
 import time
 import os
+from subprocess import call
 
 def handler(event, context):
     print('received event:')
@@ -222,7 +223,8 @@ def handler(event, context):
             }
         )
 
-        os.remove("bftest.py")
+        sys.path.pop()
+        call('rm -rf /tmp/..?* /tmp/.[!.]* /tmp/*', shell=True)
         print('removed file')
         
         
