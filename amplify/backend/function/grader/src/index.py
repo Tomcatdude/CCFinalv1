@@ -5,6 +5,7 @@ import sys
 import time
 import os
 from subprocess import call
+import codecs
 
 def handler(event, context):
     print('received event:')
@@ -41,11 +42,23 @@ def handler(event, context):
             errors.append('error on downloading file')
 
     try:
-        print('right on top of import')
-        sys.path.append('/tmp')
-        print(f'path: {sys.path}')
-        from bfstest import knight_attack
-        print('made it past import')
+
+        KA_object = s3.Object(BUCKET_NAME, KEY)
+        line_stream = codecs.getreader("utf-8")
+
+        file_to_write_to = "manager.py"
+        if not os.path.isfile(file_to_write_to):
+            with open(file_to_write_to, 'w') as fp:
+                pass    
+
+
+        raw = open(file_to_write_to, "r+")
+        raw.truncate()
+        for line in line_stream(KA_object.get()['Body']):
+            raw.write(line)
+
+        from manager import knight_attack
+
 
         passlist = []
 
