@@ -256,6 +256,7 @@ means that if n = 8, there are 8 rows and 8 columns numbered 0 to 7. If it is no
 for the knight to attack the pawn, then return None.</h3>
       <h4 style={{ color: 'red' }}>Note: filename MUST be 'bfstest.py'. Any other filename will not be uploaded and the most recent attempt will be used instead.</h4>
       <h4 style={{ color: 'red' }}>Pressing SUBMIT without uploading a file will use the most recent attempt to grade.</h4>
+      <h4 style={{ color: 'red' }}>You may have to hit SUBMIT a few times before results are updated.</h4>
       <StorageManager
       accessLevel="private"
       acceptedFileTypes={['bfstest.py']}
