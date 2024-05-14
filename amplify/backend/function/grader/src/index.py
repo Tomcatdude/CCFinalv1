@@ -58,11 +58,14 @@ def handler(event, context):
         for line in line_stream(KA_object.get()['Body']):
             raw.write(line)
             print(line)
+        raw.close()
 
         print("manager written to hopefully")
-        f = open(file_to_write_to)
+        f = open(file_to_write_to, "r")
         for line in f:
             print(f'line in manager: {line}')
+
+        f.close()
 
         sys.path.append('/tmp')
         from manager import knight_attack
