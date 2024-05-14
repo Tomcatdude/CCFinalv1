@@ -1,0 +1,16 @@
+{
+  "resourceName": "s3finalv1storage9bec08e9",
+  "bucketName": "finalv1-storage-9bec08e9",
+  "policyUUID": "72c954ca",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "DELETE",
+    "READ",
+    "CREATE_AND_UPDATE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}
