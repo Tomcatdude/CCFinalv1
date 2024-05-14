@@ -47,7 +47,7 @@ def handler(event, context):
         sys.path.append('/tmp')
         print(f'path: {sys.path}')
         knight_attack_module = importlib.import_module(uploaded_file_name[:-3])
-        from bfstest import knight_attack
+        print(knight_attack_module)
         print('made it past import')
 
         passlist = []
