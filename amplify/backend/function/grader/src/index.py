@@ -24,7 +24,11 @@ def handler(event, context):
         print(f'the key: {KEY}')
         print(f'bucket name: {BUCKET_NAME}')
         local_file_name = '/tmp/bfstest.py'
-        KEY = 'private/us-east-1:8d6cf329-03e9-cb88-2d87-e615644e09e3/bfstest.py'
+        uploaded_file_name = KEY[::-1]
+        uploaded_file_name = uploaded_file_name.split('/')[0]
+        uploaded_file_name - uploaded_file_name[::-1]
+        print(f'filename after full thing: {uploaded_file_name}')
+        KEY = f'private/us-east-1:8d6cf329-03e9-cb88-2d87-e615644e09e3/{uploaded_file_name}'
         print(f'manual input key: {KEY}')
         s3.Bucket(BUCKET_NAME).download_file(KEY, local_file_name)
         print('downloading file worked!')
@@ -174,6 +178,7 @@ def handler(event, context):
 
             #test 8
             start = time.time()
+            
             if knight_attack(3, 0, 0, 1, 1) is None:
                 full = time.time()-start
                 in_seconds = full%60
