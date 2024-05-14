@@ -44,6 +44,7 @@ function App() {
     try {
       const resultData = await client.graphql({query: listResults});
       const resultList = resultData.data.listResults.items;
+      console.log('resultList',resultList)
       setResults(resultList)
     } catch (error) {
       console.log('error on fetching results', error);
@@ -160,7 +161,7 @@ function App() {
         }
       });
       const newResult = results[results.length-1].result;
-      if(newResult != 'abort'){
+      if(newResult != 'long'){
         if(currentResult == 'DNE'){ //if the current id doesn't exist in table, there is no other result yet
           console.log('DNE')
           createAResult(id, newResult);
@@ -196,6 +197,27 @@ function App() {
       return 'passed'
     }
     return 'failed'
+  }
+
+  function getGrade(){
+    let numRight = 0;
+    numRight += yourResult[0][0];
+    numRight += yourResult[1][0];
+    numRight += yourResult[2][0];
+    numRight += yourResult[3][0];
+    numRight += yourResult[4][0];
+    numRight += yourResult[5][0];
+    numRight += yourResult[6][0];
+    numRight += yourResult[7][0];
+
+    if(numRight == 8){
+      return '100%'
+    } else if(numRight >= 4){
+      return '50%'
+    } else {
+      return '0%'
+    }
+
   }
 
   return (
@@ -247,6 +269,7 @@ for the knight to attack the pawn, then return None.</h3>
       <h3>Test 6: {numberResultToString(yourResult[5][0])} Time: {yourResult[5][1]}</h3>
       <h3>Test 7: {numberResultToString(yourResult[6][0])} Time: {yourResult[6][1]}</h3>
       <h3>Test 8: {numberResultToString(yourResult[7][0])} Time: {yourResult[7][1]}</h3>
+      <h3>Grade: {getGrade()}</h3>
       <h3>Best Score: {yourResult[8][0]}/8</h3>
       <Button onClick={signOut}>Sign Out</Button>
     </div>
