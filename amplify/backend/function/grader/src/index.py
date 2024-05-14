@@ -26,7 +26,7 @@ def handler(event, context):
         local_file_name = '/tmp/bfstest.py'
         uploaded_file_name = KEY[::-1]
         uploaded_file_name = uploaded_file_name.split('/')[0]
-        uploaded_file_name - uploaded_file_name[::-1]
+        uploaded_file_name = uploaded_file_name[::-1]
         print(f'filename after full thing: {uploaded_file_name}')
         KEY = f'private/us-east-1:8d6cf329-03e9-cb88-2d87-e615644e09e3/{uploaded_file_name}'
         print(f'manual input key: {KEY}')
