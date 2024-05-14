@@ -68,6 +68,7 @@ def handler(event, context):
         f.close()
 
         sys.path.append('/tmp')
+        sys.module.pop('manager')
         from manager import knight_attack
 
 
@@ -247,19 +248,10 @@ def handler(event, context):
                 '#R': 'result',
             }
         )
-
-        print(sys.path.copy())
-        print(sys.path)
-        tmp_file_path = 'bftest.py'
-        os.remove(tmp_file_path)
-        print('removed file')
         
         
 
     except Exception as e:
-        #sys.path.pop()
-        call('rm -rf /tmp/..?* /tmp/.[!.]* /tmp/*', shell=True)
-        print('removed file from error')
 
         #bad results, notify the app
         results_str = 'long'
