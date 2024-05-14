@@ -224,8 +224,9 @@ def handler(event, context):
             }
         )
 
-        sys.path.pop()
-        tmp_file_path = '/tmp/bftest.py'
+        print(sys.path.copy())
+        print(sys.path)
+        tmp_file_path = 'bftest.py'
         os.remove(tmp_file_path)
         print('removed file')
         

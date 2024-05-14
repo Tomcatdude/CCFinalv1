@@ -181,6 +181,7 @@ function App() {
           } else { //it was less
             setBestScore(String(currentResultArr[8][0]));
           }
+          setAlert('graded');
         }
       } else { //the code took longer to end than expected
         setResults(
@@ -196,7 +197,7 @@ function App() {
         )
         setAlert('aborted, code not good')
       }
-      setAlert('graded');
+      
     }
   
   }
