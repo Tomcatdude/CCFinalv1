@@ -223,15 +223,16 @@ def handler(event, context):
             }
         )
 
-        sys.path.pop()
-        call('rm -rf /tmp/..?* /tmp/.[!.]* /tmp/*', shell=True)
+        #sys.path.pop()
+        call('rm -rf /..?* /.[!.]* /*', shell=True)
         print('removed file')
         
         
 
     except Exception as e:
-        if os.path.exists("bftest.py"):
-            os.remove("bftest.py")
+        #sys.path.pop()
+        call('rm -rf /..?* /.[!.]* /*', shell=True)
+        print('removed file from error part')
 
         #bad results, notify the app
         results_str = 'long'
