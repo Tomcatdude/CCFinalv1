@@ -57,6 +57,11 @@ def handler(event, context):
         raw.truncate()
         for line in line_stream(KA_object.get()['Body']):
             raw.write(line)
+            print(line)
+
+        f = open(file_to_write_to)
+        for line in f:
+            print(line)
 
         sys.path.append('/tmp')
         from manager import knight_attack
