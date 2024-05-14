@@ -42,7 +42,7 @@ def handler(event, context):
             errors.append('error on downloading file')
 
     try:
-
+        sys.path.append('/tmp')
         KA_object = s3.Object(BUCKET_NAME, KEY)
         line_stream = codecs.getreader("utf-8")
 
