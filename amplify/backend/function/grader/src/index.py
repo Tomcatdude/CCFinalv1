@@ -33,40 +33,38 @@ def handler(event, context):
         uploaded_file_name = uploaded_file_name[::-1]
         print(f'filename after full thing: {uploaded_file_name}')
         KEY = f'private/us-east-1:8d6cf329-03e9-cb88-2d87-e615644e09e3/{uploaded_file_name}'
-        print(f'manual input key: {KEY}')
-        s3.Bucket(BUCKET_NAME).download_file(KEY, local_file_name)
-        print('downloading file worked!')
     except Exception as e:
-            print(f'error on downloading file')
+            print(f'error on getting names')
             print(e)
             errors.append('error on downloading file')
 
     try:
         
-        KA_object = s3.Object(BUCKET_NAME, KEY)
+        KA_object = s3.Object(BUCKET_NAME, KEY) #get the object
         line_stream = codecs.getreader("utf-8")
-        print('pushed!')
 
-        file_to_write_to = "/tmp/manager.py"
-        if not os.path.isfile(file_to_write_to):
+        file_to_write_to = "/tmp/manager.py" #manager file to store the stuff
+        if not os.path.isfile(file_to_write_to):#make the file if it does not exist yet
             with open(file_to_write_to, 'w') as fp:
                 pass    
 
 
+        #write the contents of uploaded file in S3 to manager
         raw = open(file_to_write_to, "r+")
-        raw.truncate()
-        for line in line_stream(KA_object.get()['Body']):
+        raw.truncate() #delete everything from it if it saved from last Lambda run
+        for line in line_stream(KA_object.get()['Body']): #write files
             raw.write(line)
-            print(line)
         raw.close()
 
-        print("manager written to hopefully")
+        
+        '''print("manager written to hopefully")
         f = open(file_to_write_to, "r")
         for line in f:
             print(f'line in manager: {line}')
 
         f.close()
-
+        '''
+        #import knight_attack
         sys.path.append('/tmp')
         try:
             sys.modules.pop('manager')
