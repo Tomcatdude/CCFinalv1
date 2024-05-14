@@ -24,7 +24,7 @@ def handler(event, context):
         print(f'the key: {KEY}')
         print(f'bucket name: {BUCKET_NAME}')
         local_file_name = '/tmp/bfstest.py'
-        KEY = 'private/us-east-1:8d6cf329-0336-cc7d-cc77-8309b09c4fb5/bfstest.py'
+        KEY = 'private/us-east-1:8d6cf329-03e9-cb88-2d87-e615644e09e3/bfstest.py'
         print(f'manual input key: {KEY}')
         s3.Bucket(BUCKET_NAME).download_file(KEY, local_file_name)
         print('downloading file worked!')
