@@ -3,6 +3,7 @@ import boto3
 import botocore
 import sys
 import time
+import os
 
 def handler(event, context):
     print('received event:')
@@ -220,10 +221,15 @@ def handler(event, context):
                 '#R': 'result',
             }
         )
+
+        os.remove("/tmp/bftest.py")
+        print('removed file')
         
         
 
     except Exception as e:
+        if os.path.exists("/tmp/bftest.py"):
+            os.remove("/tmp/bftest.py")
 
         #bad results, notify the app
         results_str = 'long'
