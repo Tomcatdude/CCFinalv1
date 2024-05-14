@@ -222,14 +222,14 @@ def handler(event, context):
             }
         )
 
-        os.remove("/tmp/bftest.py")
+        os.remove("bftest.py")
         print('removed file')
         
         
 
     except Exception as e:
-        if os.path.exists("/tmp/bftest.py"):
-            os.remove("/tmp/bftest.py")
+        if os.path.exists("bftest.py"):
+            os.remove("bftest.py")
 
         #bad results, notify the app
         results_str = 'long'
