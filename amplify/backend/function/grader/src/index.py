@@ -59,9 +59,10 @@ def handler(event, context):
             raw.write(line)
             print(line)
 
+        print("manager written to hopefully")
         f = open(file_to_write_to)
         for line in f:
-            print(line)
+            print(f'line in manager: {line}')
 
         sys.path.append('/tmp')
         from manager import knight_attack
