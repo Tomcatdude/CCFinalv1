@@ -33,8 +33,9 @@ def handler(event, context):
         uploaded_file_name = uploaded_file_name[::-1]
         print(f'filename after full thing: {uploaded_file_name}')
         #mine KEY = f'private/us-east-1:8d6cf329-03e9-cb88-2d87-e615644e09e3/{uploaded_file_name}'
-        KEY = f'private/us-east-1:8d6cf329-03d3-ca78-1083-e83a96a75c95/{uploaded_file_name}'
+        #KEY = f'private/us-east-1:8d6cf329-03d3-ca78-1083-e83a96a75c95/{uploaded_file_name}'
         KEY = KEY.split('%3A')[0]+':'+KEY.split('%3A')[1]
+        print(KEY)
     except Exception as e:
             print(f'error on getting names')
             print(e)
