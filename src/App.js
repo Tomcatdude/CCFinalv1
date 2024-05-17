@@ -175,6 +175,7 @@ function App() {
           console.log('newResult', newResultArr)
           console.log('currentResult', currentResultArr)
           setYourResult(newResultArr);
+          console.log('newResult '+newResultArr[8][0]+' currentResult '+currentResultArr[8][0])
           if(newResultArr[8][0] > currentResultArr[8][0]){//check if the new or current score is higher
             updateAResult(currentResultIndex, newResult); //it was greater, so update it
             setBestScore(String(newResultArr[8][0]));
