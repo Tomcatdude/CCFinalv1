@@ -286,7 +286,7 @@ for the knight to attack the pawn, then return None.</h3>
       <h3>Test 7: {numberResultToString(yourResult[6][0])} Time: {yourResult[6][1]}</h3>
       <h3>Test 8: {numberResultToString(yourResult[7][0])} Time: {yourResult[7][1]}</h3>
       <h3>Grade: {getGrade()}</h3>
-      <h3>Best Score: {yourResult[8][0]}/8</h3>
+      <h3>Best Score: {bestScore}/8</h3>
       <Button onClick={signOut}>Sign Out</Button>
     </div>
   );
